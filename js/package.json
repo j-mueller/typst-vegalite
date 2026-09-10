@@ -1,28 +1,19 @@
 {
-  "name": "vegalite-helper",
+  "name": "nulite",
   "version": "1.0.0",
-  "exports": "./index.js",
-  "scripts": {
-    "test": "node ./test.js"
-  },
+  "private": true,
   "type": "module",
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "license": "MIT",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test test/*.test.js"
+  },
   "dependencies": {
-    "@ungap/structured-clone": "^1.2.0",
-    "core-js": "^3.38.1",
-    "vega": "^5.30.0",
-    "vega-lite": "^5.21.0"
+    "core-js-pure": "3.50.0",
+    "vega": "6.4.0",
+    "vega-lite": "6.4.3"
   },
   "devDependencies": {
-    "@rollup/plugin-inject": "^5.0.5",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.3.0",
-    "babel-minify": "^0.5.2",
-    "rollup": "^4.22.4",
-    "terser": "^5.34.1",
-    "webpack": "^5.95.0",
-    "webpack-cli": "^5.1.4"
+    "esbuild": "0.28.2"
   }
 }

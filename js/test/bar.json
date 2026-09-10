@@ -1,5 +1,5 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "data": {
     "values": [
       {
@@ -60,5 +60,7 @@
       "title": "Field B",
       "type": "quantitative"
     }
-  }
+  },
+  "width": 200,
+  "height": 150
 }

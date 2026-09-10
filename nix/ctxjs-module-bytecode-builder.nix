@@ -1,33 +1,26 @@
-{ toolchain, pkgs }: 
-    let platform =
-            pkgs.makeRustPlatform {
-              cargo = toolchain;
-              rustc = toolchain;};
-    in platform.buildRustPackage rec {
-            pname = "ctxjs";
-            version = "49241de67c300cb181660c58715c12dad11b4cc2";
+{ pkgs, src }:
+pkgs.rustPlatform.buildRustPackage {
+  pname = "ctxjs";
+  version = "0.5.0";
+  inherit src;
 
-            src = pkgs.fetchFromGitHub {
-                owner = "lublak";
-                repo = "typst-ctxjs-package";
-                rev = version;
-                hash = "sha256-NGwwBhUMicj+5KiI1z8hleEpgyAL3rG1+cvfBhRtf3k=";
-            };
+  postPatch = ''
+    cp ${./typst-ctxjs-cargo.lock} Cargo.lock
+  '';
 
-            # Not sure why both 'cargoPatches' and 'cargoLock.lockFile' are needed
-            # But this is the only way I could get it to work!
+  cargoLock = {
+    lockFile = ./typst-ctxjs-cargo.lock;
+    outputHashes = {
+      "minicbor-2.2.2" = "sha256-XO99sE/+kjfwtBPYsBeOuVRNKhYNhKZGE9ToDLO51KA=";
+      "wasm-minimal-protocol-0.2.1" = "sha256-B/nol76ODuqpCx3fCb4RntLVSTDEp+K3Ae0QdLLWCcI=";
+    };
+  };
 
-            cargoPatches = [
-                ./0001-Add-Cargo.lock.patch
-            ];
-            
-            cargoLock = {
-                lockFile = ./typst-ctxjs-cargo.lock;
-                outputHashes = {
-                    "wasm-minimal-protocol-0.1.0" = "sha256-Qj9qrFWrib1i5lswQ9wI0y96/bROXdUmVWhoStbvDo0=";
-                };
-            };
-
-            doCheck = false;
-
+  # QuickJS bytecode must match the engine in the published ctxjs WASM plugin.
+  cargoBuildFlags = [
+    "--bin"
+    "ctxjs_module_bytecode_builder"
+  ];
+  doCheck = false;
+  meta.mainProgram = "ctxjs_module_bytecode_builder";
 }
