@@ -56,4 +56,3 @@ in `nix/typst-minimum.nix` and must match the package's `compiler` field.
 
 The packaged build and SVG testing approach draws on
 [ConnorBaker's PR #2](https://github.com/j-mueller/typst-vegalite/pull/2).
-See [the maintenance audit](MAINTENANCE.md) for remaining release work.
