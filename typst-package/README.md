@@ -5,7 +5,7 @@ A typst plugin to generate charts using [vegalite](https://vega.github.io/vega-l
 ## Usage
 
 ```typst
-#import "@preview/nulite:0.1.0" as nulite
+#import "@preview/nulite:0.1.1" as nulite
 
 #nulite.render(
   width: 100%,
@@ -20,14 +20,23 @@ A typst plugin to generate charts using [vegalite](https://vega.github.io/vega-l
 
 The module exports a single function, `render` with four arguments
 
-* `width`: Width of the chart in percent of the container's width
-* `height`: Height of the chart in percent of the container's height
-* `zoom`: Zoom factor applied to the SVG. This mainly affects the sizing of text in relation to the graphical elements.
+* `width`: Chart box width as a length or a percentage of the container. `auto` uses 300pt.
+* `height`: Chart box height as a length or a percentage of the container. `auto` uses 200pt.
+* `zoom`: Positive, finite zoom factor. Larger values enlarge labels and marks within the same chart box.
 * `spec`: [Vegalite specification](https://vega.github.io/vega-lite/docs/spec.html)
 
 ## Compatibility
 
-This plugin uses vegalite v5.21 and vega v5.30.
+This plugin requires Typst 0.13.0 or newer and uses ctxjs 0.5.0, Vega-Lite 6.4.3,
+and Vega 6.4.0. The package is tested with Typst 0.13.0 and 0.15.1.
+
+Widths and heights must be positive and finite. Mixed lengths such as
+`50% + 10pt` are supported. Relative dimensions require a bounded container;
+use absolute dimensions or `auto` on an automatically sized page. The chart
+keeps its aspect ratio within the requested box.
+
+Vega-Lite 6 is a major upgrade from the previous 5.x dependency. Check existing
+specifications against the Vega-Lite 6 schema when upgrading.
 
 The following features of vegalite are **not supported**:
 

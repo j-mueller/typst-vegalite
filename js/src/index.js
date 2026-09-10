@@ -1,11 +1,11 @@
-import * as vega from 'vega';
-import * as lite from 'vega-lite';
+import { parse, View } from "vega";
+import { compile } from "vega-lite";
 
-async function render_vl_helper(yourVlSpec) {
-  let vegaspec = lite.compile(yourVlSpec).spec
-  var view = new vega.View(vega.parse(vegaspec), { renderer: "none" })
-  const k = await view.toSVG()
-  return k; 
+export async function render(spec) {
+  const view = new View(parse(compile(spec).spec), { renderer: "none" });
+  try {
+    return await view.toSVG();
+  } finally {
+    view.finalize();
+  }
 }
-
-export { render_vl_helper }

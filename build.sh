@@ -1,8 +1,7 @@
-#! /bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-cd js
-npx npx terser dist/index.js --comporess -o dist/index.min.js
-cd ..
-ctxjs_module_bytecode_builder vegalite js/dist/index.min.js typst-package/vegalite.kbc1
-
-typst compile --root=.. test/test.typ 
+project_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+cd -- "${project_dir}"
+nix flake check --print-build-logs
+exec nix build .#nulite "$@"
