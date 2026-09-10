@@ -10,7 +10,6 @@ package into `result/`, including freshly compiled bytecode, examples, and
 dependency license notices. The examples support the README on Typst Universe;
 `typst.toml` excludes them from the downloadable package.
 No generated bundle or bytecode is required in the checkout.
-The package version remains 0.1.1 until release preparation.
 
 To run the stages separately:
 

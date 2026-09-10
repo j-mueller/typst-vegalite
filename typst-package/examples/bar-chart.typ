@@ -1,5 +1,5 @@
 #set page(width: 200mm, height: 150mm, margin: 10mm)
-#import "@preview/nulite:0.1.1" as vegalite
+#import "@preview/nulite:0.2.0" as vegalite
 
 #vegalite.render(
   width: 100%,

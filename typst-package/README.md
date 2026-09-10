@@ -5,7 +5,7 @@ A typst plugin to generate charts using [vegalite](https://vega.github.io/vega-l
 ## Usage
 
 ```typst
-#import "@preview/nulite:0.1.1" as nulite
+#import "@preview/nulite:0.2.0" as nulite
 
 #nulite.render(
   width: 100%,
@@ -17,6 +17,8 @@ A typst plugin to generate charts using [vegalite](https://vega.github.io/vega-l
 ```
 
 ![Example](examples/image.png)
+
+See the [complete example](examples/bar-chart.typ) and its [inline data](examples/spec.json).
 
 The module exports a single function, `render` with four arguments
 
@@ -43,6 +45,20 @@ The following features of vegalite are **not supported**:
 * Setting `width` and `height` in the spec. These values should be provided as arguments to `render`. If `width` or `height` are included in the spec then they will be ignored.
 * Loading data with the `url` property. Attempting to do this will result in an error while trying to compile the `typst` document. All data should be provided as part of the spec itself (inline).
 * Interactive charts and tooltips. 
+
+## Migrating from 0.1.0
+
+- Update the import to `@preview/nulite:0.2.0` and use Typst 0.13.0 or newer.
+- Check your specifications against Vega-Lite 6. Inline data is still required.
+- Width and height specify the chart box, including axes and labels. Omitted
+  dimensions use 300pt × 200pt. Zoom changes the label and mark sizes within that
+  box; relative dimensions require a bounded container.
+
+## License
+
+The Typst wrapper is licensed under MIT. `vegalite.kbc1` contains bundled
+JavaScript dependencies under their respective licenses; see
+[third-party notices](THIRD-PARTY-NOTICES.txt) for their license texts.
 
 ## Acknowledgements
 
