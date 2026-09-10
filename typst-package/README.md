@@ -62,4 +62,6 @@ JavaScript dependencies under their respective licenses; see
 
 ## Acknowledgements
 
+Thanks to [ConnorBaker](https://github.com/ConnorBaker) for the rewrite.
+
 Thanks to [lublak](https://github.com/lublak) for making the excellent [echarm](https://typst.app/universe/package/echarm) and [ctxjs](https://typst.app/universe/package/ctxjs/) packages
