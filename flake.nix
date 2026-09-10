@@ -59,7 +59,6 @@
                 python ${./test/integration.py} \
                   --package ${packages.nulite} \
                   --ctxjs ${pkgs.typstPackages.ctxjs_0_5_0.src} \
-                  --examples ${./typst-package/examples} \
                   --spec ${./js/test/bar.json} \
                   --golden ${./js/test/bar.svg}
                 touch "$out"

@@ -14,6 +14,7 @@ pkgs.stdenvNoCC.mkDerivation {
     "^typst.toml$"
     "^README.md$"
     "^LICENSE$"
+    "^examples(/.*)?$"
   ];
   nativeBuildInputs = [ ctxjs ];
   buildPhase = ''
@@ -25,6 +26,7 @@ pkgs.stdenvNoCC.mkDerivation {
     runHook preInstall
     mkdir -p "$out"
     cp lib.typ typst.toml README.md LICENSE vegalite.kbc1 "$out/"
+    cp -r examples "$out/"
     cp ${javascript}/THIRD-PARTY-NOTICES.txt "$out/"
     runHook postInstall
   '';

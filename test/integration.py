@@ -3,6 +3,7 @@
 import argparse
 import json
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -15,7 +16,6 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--package", required=True, type=Path)
     parser.add_argument("--ctxjs", required=True, type=Path)
-    parser.add_argument("--examples", required=True, type=Path)
     parser.add_argument("--spec", required=True, type=Path)
     parser.add_argument("--golden", required=True, type=Path)
     args = parser.parse_args()
@@ -25,6 +25,9 @@ def main():
     assert manifest["compiler"] == "0.13.0", (
         "Update the minimum-version test with the manifest"
     )
+    readme = (args.package / "README.md").read_text()
+    for image in re.findall(r"!\[[^\]]*\]\(([^)]+)\)", readme):
+        assert (args.package / image).is_file(), f"Missing README image: {image}"
 
     with tempfile.TemporaryDirectory(prefix="nulite-test-") as temporary:
         root = Path(temporary)
@@ -38,7 +41,7 @@ def main():
             TYPST_PACKAGE_PATH=str(cache),
             TYPST_PACKAGE_CACHE_PATH=str(cache),
         )
-        shutil.copytree(args.examples, root / "examples")
+        shutil.copytree(args.package / "examples", root / "examples")
         (root / "spec.json").write_text(args.spec.read_text())
         prefix = f"""#import "@preview/nulite:{manifest["version"]}": render
 #set page(width: 400pt, height: 400pt, margin: 10pt)
